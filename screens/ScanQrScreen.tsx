@@ -6,6 +6,7 @@ import {
   Linking,
   Alert,
   ToastAndroid,
+  Platform,
 } from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import {check, PERMISSIONS, request, RESULTS} from 'react-native-permissions';
@@ -41,12 +42,20 @@ function ScanQrScreen({navigation}: Props) {
   }, []);
 
   const checkCameraPermission = async () => {
-    const result = await check(PERMISSIONS.ANDROID.CAMERA);
+    const result = await check(
+      Platform.OS === 'ios'
+        ? PERMISSIONS.IOS.CAMERA
+        : PERMISSIONS.ANDROID.CAMERA,
+    );
     handlePermissionResult(result);
   };
 
   const requestCameraPermission = async () => {
-    const result = await request(PERMISSIONS.ANDROID.CAMERA);
+    const result = await request(
+      Platform.OS === 'ios'
+        ? PERMISSIONS.IOS.CAMERA
+        : PERMISSIONS.ANDROID.CAMERA,
+    );
     handlePermissionResult(result);
   };
 
