@@ -29,6 +29,7 @@ type QRCodeScanResult = {
 function ScanQrScreen({navigation}: Props) {
   const [scannerKey, setScannerKey] = useState(0);
   const [scanning, setScanning] = useState(true);
+  const [temuQR, setTemuQR] = useState(true);
 
   const onSuccess = (e: QRCodeScanResult) => {
     const scannedData = e.data;
@@ -39,9 +40,11 @@ function ScanQrScreen({navigation}: Props) {
     } else {
       Alert.alert('Scanned Data', scannedData);
     }
+    setTemuQR(false);
     setScanning(false);
     setTimeout(() => {
       setScanning(true);
+      setTemuQR(true);
       setScannerKey(prevKey => prevKey + 1);
     }, 3000);
   };
@@ -55,6 +58,9 @@ function ScanQrScreen({navigation}: Props) {
           <Text style={styles.centerText}>Please wait...</Text>
         </View>
       )}
+      {temuQR ? (
+        <Text style={styles.tidakMenemukanQR}>Tidak menemukan QR</Text>
+      ) : null}
       <TouchableOpacity style={styles.button} onPress={() => navigation.pop()}>
         <Text style={styles.buttonText}>Back</Text>
       </TouchableOpacity>
@@ -95,6 +101,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#777',
     textAlign: 'center',
     padding: 20,
+  },
+  tidakMenemukanQR: {
+    width: '100%',
+    backgroundColor: '#bababa',
+    textAlign: 'center',
+    padding: 20,
+    color: '#000',
   },
 });
 
