@@ -1,14 +1,8 @@
 import React, {useState} from 'react';
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  Linking,
-  Alert,
-} from 'react-native';
+import {View, StyleSheet, Text, Linking, Alert} from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import {ScanQrScreenNavigationProp, ScanQrScreenRouteProp} from './types.tsx';
+import {Button, useTheme} from 'react-native-paper';
 
 function isValidURL(string: string) {
   const res = string.match(
@@ -27,6 +21,8 @@ type QRCodeScanResult = {
 };
 
 function ScanQrScreen({navigation}: Props) {
+  const theme = useTheme();
+
   const [scannerKey, setScannerKey] = useState(0);
   const [scanning, setScanning] = useState(true);
   const [temuQR, setTemuQR] = useState(true);
@@ -61,9 +57,13 @@ function ScanQrScreen({navigation}: Props) {
       {temuQR ? (
         <Text style={styles.tidakMenemukanQR}>Tidak menemukan QR</Text>
       ) : null}
-      <TouchableOpacity style={styles.button} onPress={() => navigation.pop()}>
+      <Button
+        mode="outlined"
+        buttonColor={theme.colors.secondaryContainer}
+        style={styles.button}
+        onPress={() => navigation.pop()}>
         <Text style={styles.buttonText}>Back</Text>
-      </TouchableOpacity>
+      </Button>
     </View>
   );
 }
@@ -85,15 +85,13 @@ const styles = StyleSheet.create({
   },
   button: {
     marginHorizontal: 20,
-    backgroundColor: '#0000FF',
     paddingVertical: 10,
     paddingHorizontal: 20,
-    borderRadius: 10,
     marginVertical: 10,
   },
   buttonText: {
     textAlign: 'center',
-    color: '#FFFFFF',
+    color: '#000',
     fontSize: 16,
   },
   pleaseWaitStyle: {

@@ -5,8 +5,9 @@ import HomeScreen from './screens/HomeScreen.tsx';
 import GenerateQRScreen from './screens/GenerateQRScreen.tsx';
 import HistoryQrScreen from './screens/HistoryQrScreen.tsx';
 import ScanQrScreen from './screens/ScanQrScreen.tsx';
+import {RootStackParamList} from './screens/types.tsx';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function App() {
   return (

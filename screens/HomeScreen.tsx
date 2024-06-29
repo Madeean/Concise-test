@@ -1,6 +1,7 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import {HomeScreenNavigationProp} from './types.tsx';
+import {Button} from 'react-native-paper';
 
 type Props = {
   navigation: HomeScreenNavigationProp;
@@ -9,21 +10,24 @@ type Props = {
 function HomeScreen({navigation}: Props) {
   return (
     <View style={styles.container}>
-      <TouchableOpacity
+      <Button
         style={styles.button}
+        mode="contained"
         onPress={() => navigation.navigate('ScanQrScreen')}>
         <Text style={styles.buttonText}>Search QR</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
+      </Button>
+      <Button
         style={styles.button}
+        mode="contained"
         onPress={() => navigation.navigate('GenerateQr')}>
         <Text style={styles.buttonText}>Generate QR</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
+      </Button>
+      <Button
         style={styles.button}
+        mode="contained"
         onPress={() => navigation.navigate('HistoryQrScreen')}>
         <Text style={styles.buttonText}>History QR</Text>
-      </TouchableOpacity>
+      </Button>
     </View>
   );
 }
@@ -35,10 +39,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    backgroundColor: '#0000FF',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 10,
     marginVertical: 10,
   },
   buttonText: {

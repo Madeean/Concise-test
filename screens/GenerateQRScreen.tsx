@@ -3,13 +3,14 @@ import {
   View,
   TextInput,
   StyleSheet,
-  TouchableOpacity,
   Text,
   Image,
   ScrollView,
+  ToastAndroid,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import RNQRGenerator from 'rn-qr-generator';
+import {Button} from 'react-native-paper';
 
 function GenerateQRScreen() {
   const [uri, setUri] = useState('');
@@ -56,25 +57,34 @@ function GenerateQRScreen() {
       .catch(error => console.log('Cannot create QR code', error));
   };
 
+  const showToast = () => {
+    ToastAndroid.show('Isi Qr dahulu', ToastAndroid.SHORT);
+  };
+
   return (
     <ScrollView style={styles.scrollViewStyle}>
       <View style={styles.container}>
         <TextInput
-          placeholder="Input Link"
+          placeholder="Input Qr"
           placeholderTextColor="#000"
           value={text}
           onChangeText={text => setText(text)}
           style={styles.input}
         />
-        <TouchableOpacity
+        <Button
+          mode="contained-tonal"
           style={styles.button}
           onPress={() => {
-            setQrImage(text);
-            simpanHasilQr();
-            getHasilQr();
+            if (text.trim().length === 0) {
+              showToast();
+            } else {
+              setQrImage(text);
+              simpanHasilQr();
+              getHasilQr();
+            }
           }}>
           <Text style={styles.buttonText}>Generate</Text>
-        </TouchableOpacity>
+        </Button>
 
         {uri !== '' ? (
           <View style={styles.qrContainer}>
@@ -105,13 +115,11 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   button: {
-    backgroundColor: '#007bff',
     paddingVertical: 10,
     paddingHorizontal: 20,
-    borderRadius: 5,
   },
   buttonText: {
-    color: '#fff',
+    color: '#000',
     fontSize: 16,
     textAlign: 'center',
   },

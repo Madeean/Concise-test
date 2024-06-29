@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, Text, FlatList, ListRenderItem } from "react-native";
+import {View, StyleSheet, Text, FlatList, ListRenderItem} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function HistoryQrScreen() {
