@@ -6,11 +6,11 @@ import {
   Text,
   Image,
   ScrollView,
-  ToastAndroid,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import RNQRGenerator from 'rn-qr-generator';
 import {Button} from 'react-native-paper';
+import Toast from 'react-native-simple-toast';
 
 function GenerateQRScreen() {
   const [uri, setUri] = useState('');
@@ -58,7 +58,7 @@ function GenerateQRScreen() {
   };
 
   const showToast = () => {
-    ToastAndroid.show('Isi Qr dahulu', ToastAndroid.SHORT);
+    Toast.showWithGravity('Isi Qr dahulu', Toast.SHORT, Toast.BOTTOM);
   };
 
   return (

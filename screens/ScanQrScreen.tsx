@@ -1,17 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  Linking,
-  Alert,
-  ToastAndroid,
-  Platform,
-} from 'react-native';
+import {View, StyleSheet, Text, Linking, Alert, Platform} from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import {check, PERMISSIONS, request, RESULTS} from 'react-native-permissions';
 import {Button, useTheme} from 'react-native-paper';
 import {ScanQrScreenNavigationProp, ScanQrScreenRouteProp} from './types';
+import Toast from 'react-native-simple-toast';
 
 function isValidURL(string: string) {
   const res = string.match(
@@ -62,9 +55,10 @@ function ScanQrScreen({navigation}: Props) {
   const handlePermissionResult = result => {
     switch (result) {
       case RESULTS.UNAVAILABLE:
-        ToastAndroid.show(
+        Toast.showWithGravity(
           'Fitur kamera tidak tersedia di perangkat ini',
-          ToastAndroid.LONG,
+          Toast.SHORT,
+          Toast.BOTTOM,
         );
         break;
       case RESULTS.DENIED:
@@ -74,9 +68,10 @@ function ScanQrScreen({navigation}: Props) {
         setHasCameraPermission(true);
         break;
       case RESULTS.BLOCKED:
-        ToastAndroid.show(
+        Toast.showWithGravity(
           'Izin kamera diblokir. Aktifkan dari pengaturan.',
-          ToastAndroid.LONG,
+          Toast.SHORT,
+          Toast.BOTTOM,
         );
         break;
     }
