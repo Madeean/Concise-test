@@ -7,39 +7,19 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import RNQRGenerator from 'rn-qr-generator';
 import {Button} from 'react-native-paper';
 import Toast from 'react-native-simple-toast';
+import {useDispatch} from 'react-redux';
+import {addHistoryQr} from '../redux/reducers/History.ts';
 
 function GenerateQRScreen() {
   const [uri, setUri] = useState('');
   const [text, setText] = useState('');
-  const [hasilQr, setHasilQr] = useState('');
-
-  useEffect(() => {
-    getHasilQr();
-  }, []);
+  const dispatch = useDispatch();
 
   const simpanHasilQr = async () => {
-    try {
-      let simpanQr = hasilQr + text;
-      await AsyncStorage.setItem('hasilQr', simpanQr + ',');
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const getHasilQr = async () => {
-    try {
-      const value = await AsyncStorage.getItem('hasilQr');
-      if (value !== null) {
-        console.log('hasil qr', value);
-        setHasilQr(value);
-      }
-    } catch (e) {
-      console.log(e);
-    }
+    dispatch(addHistoryQr({message: text}));
   };
 
   const setQrImage = (text: string) => {
@@ -80,7 +60,6 @@ function GenerateQRScreen() {
             } else {
               setQrImage(text);
               simpanHasilQr();
-              getHasilQr();
             }
           }}>
           <Text style={styles.buttonText}>Generate</Text>
